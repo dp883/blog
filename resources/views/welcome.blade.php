@@ -19,10 +19,22 @@
     </head>
     <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
         <h1>Hello</h1>
-        <div class="from">
-            <div x-data="showpassword">
+        
 
+            <div x-data="{ showPassword: false }">
+                <label>Password</label>
+
+                <input
+                    :type="showPassword ? 'text' : 'password'"
+                    placeholder="Enter password"
+                >
+
+                <button
+                    type="button"
+                    @click="showPassword = !showPassword"
+                    x-text="showPassword ? 'Hide' : 'Show'"
+                >asda</button>
             </div>
-        </div>
+
     </body>
 </html>

@@ -120,27 +120,26 @@
 
                                 <td class="text-end pe-3">
                                     <div class="d-flex justify-content-end gap-2 flex-wrap">
-
-                                        @can('comments.approve')
+                                        <div x-data="{
+                                                canApprove: @js(auth()->user()->can('comments.approve')),
+                                                canDelete: @js(auth()->user()->can('comments.delete'))
+                                            }">
                                             @if ($comment->status !== 'approved')
-                                                <button type="button" wire:click="approve({{ $comment->id }})" wire:loading.attr="disabled" wire:target="approve({{ $comment->id }})" class="btn btn-sm btn-success">
+                                                <button x-show="canApprove" x-cloak type="button" wire:click="approve({{ $comment->id }})" wire:loading.attr="disabled" wire:target="approve({{ $comment->id }})" class="btn btn-sm btn-success">
                                                     Approve
                                                 </button>
                                             @endif
 
                                             @if ($comment->status !== 'rejected')
-                                                <button type="button" wire:click="reject({{ $comment->id }})" wire:confirm="Are you sure you want to reject this comment?" wire:loading.attr="disabled" wire:target="reject({{ $comment->id }})" class="btn btn-sm btn-outline-warning">
+                                                <button x-show="canApprove" x-cloak type="button" wire:click="reject({{ $comment->id }})" wire:confirm="Are you sure you want to reject this comment?" wire:loading.attr="disabled" wire:target="reject({{ $comment->id }})" class="btn btn-sm btn-outline-warning">
                                                     Reject
                                                 </button>
                                             @endif
-                                        @endcan
 
-                                        @can('comments.delete')
-                                            <button type="button" wire:click="delete({{ $comment->id }})" wire:confirm="Permanently delete this comment?" wire:loading.attr="disabled" wire:target="delete({{ $comment->id }})" class="btn btn-sm btn-outline-danger">
+                                            <button x-show="canDelete" x-cloak type="button" wire:click="delete({{ $comment->id }})" wire:confirm="Permanently delete this comment?" wire:loading.attr="disabled" wire:target="delete({{ $comment->id }})" class="btn btn-sm btn-outline-danger">
                                                 Delete
                                             </button>
-                                        @endcan
-
+                                        </div>
                                     </div>
                                 </td>
 

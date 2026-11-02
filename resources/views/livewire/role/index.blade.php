@@ -49,16 +49,21 @@
                                     @endforelse
                                 </td>
                                 <td class="text-end text-nowrap">
-                                    @can('roles.edit')
-                                    <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-warning btn-sm">
-                                        Edit
-                                    </a>
-                                    @endcan
-                                    @can('roles.delete')
-                                    <button class="btn btn-sm btn-outline-danger" wire:click="delete({{ $role->id }})" wire:confirm="Are you sure you want to delete this role?">
-                                        Delete
-                                    </button>
-                                    @endcan
+                                    <div x-data="{
+                                            canEdit: @js(auth()->user()->can('roles.edit')),
+                                            canDelete: @js(auth()->user()->can('roles.delete'))
+                                        }">
+                                        <template x-if="canEdit">
+                                            <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-warning btn-sm">
+                                                Edit
+                                            </a>
+                                        </template>
+                                        <template x-if="canDelete">
+                                            <button type="button" class="btn btn-sm btn-outline-danger" wire:click="delete({{ $role->id }})" wire:confirm="Are you sure you want to delete this role?">
+                                                Delete
+                                            </button>
+                                        </template>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

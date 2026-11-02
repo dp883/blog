@@ -37,16 +37,21 @@
                                 <td class="fw-semibold">{{ $tag->name }}</td>
                                 <td>{{ $tag->posts_count }}</td>
                                 <td class="text-end text-nowrap">
-                                    @can('tags.edit')
-                                    <a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-warning btn-sm">
-                                        Edit
-                                    </a>
-                                    @endcan
-                                    @can('tags.delete')
-                                    <button class="btn btn-sm btn-outline-danger" wire:click="delete({{ $tag->id }})" wire:confirm="Are you sure you want to delete this tag?">
-                                        Delete
-                                    </button>
-                                    @endcan
+                                    <div x-data="{
+                                        canEdit: @js(auth()->user()->can('tags.edit')),
+                                        canDelete: @js(auth()->user()->can('tags.delete'))
+                                    }">
+                                        <template x-if="canEdit">
+                                            <a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-warning btn-sm">
+                                                Edit
+                                            </a>
+                                        </template>
+                                        <template x-if="canDelete">
+                                            <button class="btn btn-sm btn-outline-danger" wire:click="delete({{ $tag->id }})" wire:confirm="Are you sure you want to delete this tag?">
+                                                Delete
+                                            </button>
+                                        </template>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

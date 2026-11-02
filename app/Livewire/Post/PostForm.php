@@ -39,7 +39,6 @@ class PostForm extends Component
 
     public bool $removeCurrentImage = false;
 
-    // Load post when editing
     public function mount(?int $postId = null): void
     {
         if ($postId) {
@@ -71,7 +70,6 @@ class PostForm extends Component
         }
     }
 
-    // Auto generate slug
     public function updatedTitle(): void
     {
         if (!$this->postId) {
@@ -79,7 +77,6 @@ class PostForm extends Component
         }
     }
 
-    // Save post
     public function save()
     {
         if ($this->postId) {
@@ -154,14 +151,12 @@ class PostForm extends Component
         return $this->redirectRoute('posts.index');
     }
 
-    // Mark existing image for removal
     public function removecurrentImage(): void
     {
         $this->removeCurrentImage = true;
         $this->existingImage = null;
     }
 
-    // Authorization helper
     private function authorizePost(Post $post): void
     {
         abort_unless(

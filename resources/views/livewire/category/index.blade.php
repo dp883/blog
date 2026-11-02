@@ -37,16 +37,22 @@
                                 <td class="fw-semibold">{{ $category->name }}</td>
                                 <td>{{ $category->description }}</td>
                                 <td class="text-end text-nowrap">
-                                    @can('categories.edit')
-                                    <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning btn-sm">
-                                        Edit
-                                    </a>
-                                    @endcan
-                                    @can('categories.delete')
-                                    <button class="btn btn-sm btn-outline-danger" wire:click="delete({{ $category->id }})" wire:confirm="Are you sure you want to delete this category?">
-                                        Delete
-                                    </button>
-                                    @endcan
+                                    <div x-data="{
+                                            canEdit: @js(auth()->user()->can('categories.edit')),
+                                            canDelete: @js(auth()->user()->can('categories.delete'))
+                                        }">
+                                        <template x-if="canEdit">
+                                            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning btn-sm">
+                                                Edit
+                                            </a>
+                                        </template>
+
+                                        <template x-if="canDelete">
+                                            <button type="button" class="btn btn-sm btn-outline-danger" wire:click="delete({{ $category->id }})" wire:confirm="Are you sure you want to delete this category?">
+                                                Delete
+                                            </button>
+                                        </template>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

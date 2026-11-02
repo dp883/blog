@@ -6,7 +6,6 @@
 
     <title>{{ $title ?? 'Admin Dashboard' }}</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
 
@@ -27,55 +26,49 @@
 
             <nav class="nav nav-pills flex-column mb-auto gap-2">
                 @can('dashboard.view')
-                <a href="{{ route('dashboard') }}"
-                   wire:navigate
+                <a href="{{ route('dashboard') }}" wire:navigate
                    class="nav-link text-white {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     Dashboard
                 </a>
                 @endcan
 
                 @can('posts.view')
-                <a href="{{ route('posts.index') }}"
-                   class="nav-link text-white {{ request()->routeIs('posts.*') ? 'active' : '' }}"
-                   aria-disabled="true">
+                <a href="{{ route('posts.index') }}" wire:navigate
+                   class="nav-link text-white {{ request()->routeIs('posts.*') ? 'active' : '' }}" aria-disabled="true">
                     Posts
                 </a>
                 @endcan
                 
                 @can('tags.view')
-                <a href="{{ route('tags.index') }}"
-                   class="nav-link text-white {{ request()->routeIs('tags.*') ? 'active' : '' }}"
-                   aria-disabled="true">
+                <a href="{{ route('tags.index') }}" wire:navigate
+                   class="nav-link text-white {{ request()->routeIs('tags.*') ? 'active' : '' }}"aria-disabled="true">
                     Tag
                 </a>
                 @endcan
 
                 @can('categories.view')
-                <a href="{{ route('categories.index') }}"
-                   class="nav-link text-white {{ request()->routeIs('categories.*') ? 'active' : '' }}"
-                   aria-disabled="true">
+                <a href="{{ route('categories.index') }}" wire:navigate
+                   class="nav-link text-white {{ request()->routeIs('categories.*') ? 'active' : '' }}" aria-disabled="true">
                     Category
                 </a>
                 @endcan
 
                 @can('users.view')
-                <a href="{{ route('users.index') }}"
-                    wire:navigate
+                <a href="{{ route('users.index') }}" wire:navigate
                     class="nav-link text-white {{ request()->routeIs('users.*') ? 'active' : '' }}">
                     Users
                 </a>
                 @endcan
 
                 @can('roles.view')
-                <a href="{{ route('roles.index') }}"
+                <a href="{{ route('roles.index') }}" wire:navigate
                    class="nav-link text-white {{ request()->routeIs('roles.*') ? 'active' : '' }}"
                    aria-disabled="true">
                     Role 
                 </a>
                 @endcan
                 @can('comments.view')
-                    <a href="{{ route('comments.index') }}"
-                        wire:navigate
+                    <a href="{{ route('comments.index') }}" wire:navigate
                         class="nav-link text-white {{ request()->routeIs('comments.*') ? 'active' : '' }}">
                         Comments
                     </a>
@@ -95,7 +88,7 @@
             <hr class="text-secondary">
 
             <div class="small text-secondary">
-                <div class="mt-1">Version 1.0</div>
+                <div class="mt-1">Version 1.01</div>
             </div>
         </aside>
 
@@ -137,5 +130,7 @@
     </div>
 
     @livewireScripts
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 </body>
 </html>

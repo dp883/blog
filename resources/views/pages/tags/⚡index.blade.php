@@ -119,9 +119,7 @@ new #[Layout('layouts.admin')] class extends Component
                 <form wire:submit="save">
                     <div class="mb-3">
                         <label class="form-label">Tag Name</label>
-                        <input type="text"
-                               class="form-control @error('name') is-invalid @enderror"
-                               wire:model="name">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" wire:model="name">
 
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -130,9 +128,7 @@ new #[Layout('layouts.admin')] class extends Component
 
                     <div class="mb-3">
                         <label class="form-label">Slug</label>
-                        <input type="text"
-                               class="form-control @error('slug') is-invalid @enderror"
-                               wire:model="slug">
+                        <input type="text" class="form-control @error('slug') is-invalid @enderror" wire:model="slug">
 
                         @error('slug')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -143,9 +139,7 @@ new #[Layout('layouts.admin')] class extends Component
                         Save Tag
                     </button>
 
-                    <button class="btn btn-outline-secondary"
-                            type="button"
-                            wire:click="resetForm">
+                    <button class="btn btn-outline-secondary" type="button" wire:click="resetForm">
                         Cancel
                     </button>
                 </form>
@@ -155,10 +149,7 @@ new #[Layout('layouts.admin')] class extends Component
 
     <div class="card border-0 shadow-sm rounded-4">
         <div class="card-body p-4">
-            <input type="search"
-                   class="form-control mb-3"
-                   placeholder="Search tags..."
-                   wire:model.live.debounce.300ms="search">
+            <input type="search" class="form-control mb-3" placeholder="Search tags..." wire:model.live.debounce.300ms="search">
 
             <div class="table-responsive">
                 <table class="table table-hover align-middle">

@@ -4,6 +4,7 @@ use App\Livewire\Category\CategoryForm;
 use App\Livewire\Category\CategoryIndex;
 use App\Livewire\Comment\CommentIndex;
 use App\Livewire\Dashboard;
+use App\Livewire\Login\LoginIndex;
 use App\Livewire\Post\PostForm;
 use App\Livewire\Post\PostIndex;
 use App\Livewire\Role\RoleForm;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
 
-    Route::livewire('/login', 'pages::login')->name('login');
+    Route::livewire('/login', LoginIndex::class)->name('login');
     Route::livewire('/register', 'pages::register')->name('register');
 });
 Route::livewire('/', 'pages::home')->name('home');

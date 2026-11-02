@@ -1,38 +1,3 @@
-
-<?php
-
-use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
-
-new class extends Component
-{
-    public string $email = '';
-
-    public string $password = '';
-
-    public bool $remember = false;
-
-    public function login()
-    {
-        $credentials = $this->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string'],
-        ]);
-
-        if (! Auth::attempt($credentials,$this->remember)) {
-            throw ValidationException::withMessages([
-                'email' => 'The email or password is incorrect.',
-            ]);
-        }
-
-        request()->session()->regenerate();
-
-        return redirect()->route('dashboard');
-    }
-};
-?>
-
 <div class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
     <div class="card border-0 shadow-sm rounded-4 w-100" style="max-width: 450px;">
         <div class="card-body p-4 p-md-5">
@@ -64,10 +29,14 @@ new class extends Component
                     <label for="password" class="form-label">
                         Password
                     </label>
-                    
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" wire:model="password" placeholder="Enter your password" autocomplete="current-password">
-                    
-                    
+                    <div x-data="{ showPassword: false }">
+                        <div class="input-group">
+                            <input :type="showPassword ? 'text' : 'password'" class="form-control @error('password') is-invalid @enderror" wire:model="password" placeholder="Enter your password" autocomplete="current-password">
+                            <button type="button" class="btn btn-outline-secondary" @click="showPassword = !showPassword">
+                                <span x-text="showPassword ? 'Hide' : 'Show'"></span>
+                            </button>
+                        </div>
+                    </div>  
                     @error('password')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -94,17 +63,6 @@ new class extends Component
                 </button>
 
             </form>
-
-            {{-- <div class="text-center mt-4">
-                <span class="text-secondary">
-                    Don't have an account?
-                </span>
-
-                <a href="{{ route('register') }}" class="text-decoration-none">
-                    Register
-                </a>
-            </div> --}}
-
         </div>
     </div>
 </div>
